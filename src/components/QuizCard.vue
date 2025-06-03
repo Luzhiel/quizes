@@ -2,8 +2,28 @@
 import { useRouter } from 'vue-router';
 import { defineProps } from 'vue';
 
+interface AnswerOption {
+  id: number;
+  label: string;
+  text: string;
+  correct: boolean;
+}
+
+interface Question {
+  id: number;
+  text: string;
+  answers: AnswerOption[];
+}
+
 const router = useRouter();
-const { quiz } = defineProps(['quiz']);
+const { quiz } = defineProps<{
+  quiz: {
+    id: number;
+    title: string;
+    img: string;
+    questions: Question[];
+  };
+}>();
 
 const goToQuiz = () => {
   router.push({ name: 'quiz', params: { id: quiz.id } });
